@@ -1,0 +1,23 @@
+{
+  "name": "pipezania",
+  "version": "0.0.1",
+  "description": "Pipe Game",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp-browserify": "^0.5.1",
+    "gulp": "^3.9.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-sass": "^2.1.0",
+    "gulp-watch": "^4.3.5"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0",
+    "gulp-sass-bulk-import": "^0.3.2"
+  },
+  "keywords": [
+    "surfing"
+  ],
+  "author": "Ham Steak Games",
+  "license": "MIT",
+}
