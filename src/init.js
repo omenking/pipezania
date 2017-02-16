@@ -1,4 +1,4 @@
-window.editor    = 21
+window.editor    = false
 window.game      = null
 window._states   = {}
 window.Component = {Editor: {}}

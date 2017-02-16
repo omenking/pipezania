@@ -4,8 +4,12 @@ class window.Data
     []
   constructor:->
     @data = {
-      levels: []
+      levels : []
+      tlevels: [] #timed_levels
     }
+  tlevel:(i)=>
+    return null unless @data.tlevels
+    @data.tlevels[i]
   level_status:(i,v)=>
     if @data.levels
       lvl = @data.levels[i]
@@ -66,14 +70,22 @@ class window.Data
       when 0  then true
       else
         @gem_count() >= (level*3)-2
-  level_complete:(i,jewels)=>
-    str = ['t']
-    str.push 'r' if jewels.red    || @level_status i, 'red'
-    str.push 'g' if jewels.green  || @level_status i, 'green'
-    str.push 'b' if jewels.blue   || @level_status i, 'blue'
-    str = str.join ''
-    @data.levels[i] = str
-    @save()
+  level_complete:(i,jewels,time)=>
+    switch @mode
+      when 'time'
+        if jewels.red && jewels.green && jewels.blue
+          @data.tlevels    = [] unless @data.tlevels
+          @data.tlevels[i] = time
+          @save()
+      when 'adventure'
+        str = ['t']
+        str.push 'r' if jewels.red    || @level_status i, 'red'
+        str.push 'g' if jewels.green  || @level_status i, 'green'
+        str.push 'b' if jewels.blue   || @level_status i, 'blue'
+        str = str.join ''
+        @data.levels    = [] unless @data.levels
+        @data.levels[i] = str
+        @save()
   reset:=>
     store.remove 'save'
   load:=>

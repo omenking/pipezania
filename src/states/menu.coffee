@@ -179,7 +179,12 @@ animate4 = =>
 
 
 
-start_onclick = ->
+start_adventure_onclick = ->
+  _d.mode = 'adventure'
+  game.state.start 'levels'
+
+start_time_onclick = ->
+  _d.mode = 'time'
   game.state.start 'levels'
 
 tween_red = =>
@@ -202,13 +207,14 @@ create = ->
   tick = game.time.now
   g = game.add.graphics 0, 0
 
-  btn = game.add.button 5*64, 5*64, 'button_play', start_onclick, this, 0,0,0
+  btn = game.add.button (4*64)+32, (4*64)+32, 'button_adventure', start_adventure_onclick, this, 0,0,0
+  btn = game.add.button (4*64)+32, (5*64)+32, 'button_time'     , start_time_onclick     , this, 0,0,0
 
   tween = game.add
 
   red  = game.add.sprite (2*64)+32, (2*64)+32, 'jewel_red'
   blue = game.add.sprite (9*64)+32, (2*64)+32, 'jewel_blue'
-  red.anchor.setTo 0.5, 0.5
+  red.anchor.setTo  0.5, 0.5
   blue.anchor.setTo 0.5, 0.5
 
   tween_red()

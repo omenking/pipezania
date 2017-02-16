@@ -38,13 +38,17 @@ _states.load =
     game.load.audio 'turn3' , './turn3.mp3'
     game.load.audio 'turn4' , './turn4.mp3'
 
-    game.load.image       'select_level' , './select_level.png'
-    game.load.image       'button_play'  , './button_play.png'
+    game.load.image 'back_button' , './back.png'
+    game.load.image 'label_adventure' , './label_adventure.png'
+    game.load.image 'label_time'      , './label_time.png'
+
+    game.load.image       'button_adventure', './button_adventure.png'
+    game.load.image       'button_time'     , './button_time.png'
 
     game.load.spritesheet 'button_flow'  , './button_flow.png'  , 128, 64 , 2
     game.load.spritesheet 'large_jewels' , './large_jewels.png' , 100, 100, 4
     game.load.spritesheet 'audio_buttons', './audio_buttons.png', 48 , 48 , 4
-    game.load.spritesheet 'levels'       , './levels.png'       , 128, 96 , 4
+    game.load.spritesheet 'levels'       , './levels.png'       , 128, 96 , 6
     game.load.spritesheet 'pipes'        , './pipes.png'        , 64 , 64 , 6
     game.load.spritesheet 'clear_buttons', './clear_buttons.png', 64 , 64 , 9
     game.load.image       'tile'         , './tile.png'

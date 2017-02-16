@@ -14,10 +14,18 @@ style2 =
   fill: '#000'
   align: 'center'
 
+style4 =
+  font: '18px Verdana'
+  fill: '#000'
+  align: 'center'
+
 style3 =
   font: '20px Verdana'
   fill: '#fff'
   align: 'center'
+
+onclick_back = ->
+  game.state.start 'menu'
 
 onclick = (level)->
   _d.level = level.i
@@ -57,7 +65,24 @@ tween_gem = =>
   tween.loop true
   tween.start()
 
-level_unlocked = (level,i)->
+level_unlocked_time = (level,i)->
+  level.frame = 4
+
+  txt = game.make.text 0,0, "#{i+1}", style4
+  txt.anchor.setTo 0.5, 0.5
+  txt.x = level.width / 2
+  txt.y = (level.height / 2) - 8
+
+  level.inputEnabled = true
+  level.events.onInputDown.add onclick, this
+
+  t = _d.tlevel(i)
+  if t != null && t != undefined
+    level.frame = 5
+
+  level.addChild txt
+
+level_unlocked_adventure = (level,i)->
   level.frame = 0
   inline = 30
   red   = game.make.sprite inline        , 68, jewel_color(i, 'red')
@@ -88,7 +113,6 @@ level_unlocked = (level,i)->
 
   level.addChild txt
 
-  level.i = i
   level.inputEnabled = true
   level.events.onInputDown.add onclick, this
 
@@ -122,10 +146,17 @@ create = ->
   group.x = (game.world.width  / 2) - (group.width  / 2)
   group.y = (game.world.height / 2) - (group.height / 2)
 
-  select_level = game.add.sprite  0, 0, 'select_level'
-  select_level.anchor.setTo 0.5, 0.5
-  select_level.y = 64
-  select_level.x = game.world.width / 2
+  title = game.add.sprite  0, 0, "label_#{_d.mode}"
+  title.anchor.setTo 0.5, 0.5
+  title.y = 64
+  title.x = game.world.centerX
+
+  back = game.add.sprite 0, 0, 'back_button'
+  back.anchor.setTo 0.5, 0.5
+  back.y = 64
+  back.x = 96
+  back.inputEnabled = true
+  back.events.onInputDown.add onclick_back, this
 
   btn_music = game.add.sprite  620, 512, 'audio_buttons'
   btn_music.frame = if _d.get_music() then 2 else 3
@@ -161,8 +192,13 @@ create = ->
 
 
   for level,i in group.children
+    level.i = i
     if _d.is_unlocked(i)
-      level_unlocked level,i
+      switch _d.mode
+        when 'time'
+          level_unlocked_time level,i
+        when 'adventure'
+          level_unlocked_adventure level,i
     else
       level_locked level,i
 

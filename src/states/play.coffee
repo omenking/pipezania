@@ -2,8 +2,8 @@ class controller
   constructor:(args)->
     @toolbar        = new Component.Editor.Toolbar()
     @spill          = new Component.Spill()
-    @grid           = new Component.Grid @spill, @toolbar, @success, @fail
-    @countdown      = new Component.Countdown()
+    @counter        = new Component.Counter()
+    @grid           = new Component.Grid @spill, @counter, @toolbar, @success, @fail
     @clear_screen   = new Component.ClearScreen()
     @release_button = new Component.ReleaseButton()
 
@@ -15,11 +15,11 @@ class controller
     ajax.open 'POST', "http://localhost:1234/save/#{_d.level}/#{data}"
     ajax.setRequestHeader 'Content-Type', 'application/json'
     ajax.send()
-  success:(jewels)=>
+  success:(jewels,time)=>
     @backup()
     if _d.get_sound()
       @sound_win.play()
-    @clear_screen.show(true,jewels)
+    @clear_screen.show(true,jewels,time)
   fail_sound:=>
     #if _d.get_sound()
       #@sound_fail.play()
@@ -32,7 +32,8 @@ class controller
 
     if _d.get_sound()
       @sound_go.play()
-    @countdown.stop()
+    if _d.mode is 'time'
+      @counter.stop()
     @grid.start_flowing()
   set_jewel:=>
     x = game.input.x
@@ -47,6 +48,7 @@ class controller
     g.drawRect  0, game.world.height-64, 800, 64
     g.endFill()
   create:=>
+    game.stage.disableVisibilityChange = true
     if window.editor != false
       save_hotkey = game.input.keyboard.addKey(Phaser.Keyboard.U)
       save_hotkey.onDown.add @backup
@@ -69,14 +71,14 @@ class controller
     time = if window.editor != false then 10000 else _l[_d.level].countdown
     @menubar_bg()
     @release_button.create @release_goo
-    @countdown.create      @release_goo, time
+    @counter.create        @release_goo, time
     @grid.create _d.level
     if editor != false
       @toolbar.create @grid
     @clear_screen.create()
 
   update:=>
-    @countdown.update()
+    @counter.update()
     @grid.update()
     @spill.update()
 ctrl = new controller()

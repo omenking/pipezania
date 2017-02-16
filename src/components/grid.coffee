@@ -1,6 +1,7 @@
 class Component.Grid
-  constructor:(spill,toolbar,success,fail)->
+  constructor:(spill,counter,toolbar,success,fail)->
     @toolbar = toolbar
+    @counter = counter
     @spill = spill
     @callback_success = success
     @callback_fail    = fail
@@ -86,7 +87,7 @@ class Component.Grid
     pipe_next  = null
     @_pipe = null
     if pipe_last.kind is 'end'
-      @callback_success(@jewels)
+      @callback_success(@jewels,@counter.time())
     else
       pipe_next = @get pipe_last.get_index()
       if pipe_next && pipe_next.dir()
@@ -160,7 +161,11 @@ class Component.Grid
   create:(level)=>
     @reset()
     @level = level
-    @speed = if _l[@level] then _l[@level].speed else 10
+    switch _d.mode
+      when 'adventure'
+        @speed = 20
+      when 'time'
+        @speed = if _l[@level] then _l[@level].speed else 10
     @create_bg()
     @spill.create() # had to do it here it ensure correct layering.
     @create_grid()

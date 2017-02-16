@@ -5,12 +5,12 @@ class Component.ClearScreen
     @btn_level = null
     @btn_again = null
     @btn_next  = null
-  show:(success,jewels)=>
+  show:(success,jewels,time)=>
     @jewel_red.frame   = if jewels && jewels.red   then 1 else 3
     @jewel_green.frame = if jewels && jewels.green then 0 else 3
     @jewel_blue.frame  = if jewels && jewels.blue  then 2 else 3
     if success
-      _d.level_complete _d.level, jewels
+      _d.level_complete _d.level, jewels, time
       game.time.events.add(Phaser.Timer.SECOND * 0.5, @now_show, this)
     else
       game.time.events.add(Phaser.Timer.SECOND * 1, @now_show, this)

@@ -16,7 +16,7 @@ var js_lvls = "./src/levels/*.js"
 
 var js_app = [
   , './src/components/clear_screen.coffee'
-  , './src/components/countdown.coffee'
+  , './src/components/counter.coffee'
   , './src/components/grid.coffee'
   , './src/components/jewel.coffee'
   , './src/components/pipe.coffee'
@@ -50,7 +50,7 @@ gulp.task('js', function() {
     .pipe(addsrc.prepend(js_lib))
     .pipe(addsrc.prepend(js_init))
     .pipe(concat('app.js'))
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest('./public/'));
 });
 
@@ -60,5 +60,5 @@ gulp.task('default', function () {
 
 gulp.task('watch', function () {
   gulp.run('js');
-  gulp.watch(js_files , ['js']);
+  gulp.watch('./src/**/*.coffee' , ['js']);
 });
