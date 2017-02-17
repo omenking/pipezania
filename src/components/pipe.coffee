@@ -9,14 +9,16 @@ class Component.Pipe
     @g = game.make.graphics 0, 0
     @pipe.addChild @g # stores the flowing graphic
 
+    px = @grid.gridpx() / 2
     @jewel = null
-    @jewel = new Component.Jewel jewel, @pipe.x+32, @pipe.y+32 if jewel != 0
+    @jewel = new Component.Jewel jewel, @pipe.x+px, @pipe.y+px if jewel != 0
     @pipe.inputEnabled = true
     @pipe.events.onInputDown.add @onclick, this
 
+    @pipe.scale.setTo @grid.gridscale(), @grid.gridscale()
     @pipe.anchor.setTo 0.5, 0.5
-    @pipe.x += 32
-    @pipe.y += 32
+    @pipe.x += px
+    @pipe.y += px
     @pipe.exists = true
     @per1 = 0 # progress 1
     @per2 = 0 # progress 2
@@ -25,6 +27,7 @@ class Component.Pipe
     @done = false
     @g.clear()
     @set()
+
     @render()
   set_jewel:=>
     if @jewel is null
@@ -92,7 +95,8 @@ class Component.Pipe
     @pipe.angle = ang
   onclick:(pipe)=>
     if editor != false && @grid.is_toolbar_active()
-      @grid.onclick_cell pipe.x-32, pipe.y-32
+      px = @grid.gridpx() / 2
+      @grid.onclick_cell pipe.x-px, pipe.y-px
     else
       unless @grid.rotating_pipe() ||
              @kind in ['start','end'] ||

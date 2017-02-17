@@ -1,8 +1,9 @@
-var gulp   = require('gulp');
-var coffee = require('gulp-coffee');
-var concat = require('gulp-concat');
-var addsrc = require('gulp-add-src');
-var uglify = require('gulp-uglify');
+var gulp   = require('gulp')
+//var reload = require('gulp-livereload')
+var coffee = require('gulp-coffee')
+var concat = require('gulp-concat')
+var addsrc = require('gulp-add-src')
+var uglify = require('gulp-uglify')
 
 var js_init  = './src/init.js'
 
@@ -59,6 +60,11 @@ gulp.task('default', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.run('js');
-  gulp.watch('./src/**/*.coffee' , ['js']);
+  //reload.listen()
+  gulp.watch(
+    [
+      './src/init.js',
+      './src/**/*.coffee',
+    ]
+  , ['js']);
 });

@@ -12,6 +12,7 @@ class Component.Grid
       blue : false
       red  : false
     @alt        = false
+    @size       = null
     @level      = null
     @speed      = null
     @flow_dir   = null
@@ -79,9 +80,9 @@ class Component.Grid
   get:(i)=>
     switch @flow_dir
       when 'east'  then @pipes[i+1]
-      when 'south' then @pipes[i+12]
+      when 'south' then @pipes[i+@griddim()[0]]
       when 'west'  then @pipes[i-1]
-      when 'north' then @pipes[i-12]
+      when 'north' then @pipes[i-@griddim()[0]]
   next:=>
     pipe_last  = @_pipe
     pipe_next  = null
@@ -98,9 +99,9 @@ class Component.Grid
       else
         @spill.spill @callback_fail, pipe_last, @flow_dir
   onclick_cell:(x,y)=>
-    ny = if y > 0   then y / 64 else y
-    nx = if x > 0   then x / 64 else x
-    i  = if ny is 0 then nx     else (ny * 12) + nx
+    ny = if y > 0   then y / @gridpx() else y
+    nx = if x > 0   then x / @gridpx() else x
+    i  = if ny is 0 then nx else (ny * @griddim()[0]) + nx
     old_child = @grid.children[i]
     new_child = game.make.sprite 0, 0, 'pipes'
     @grid.replace old_child, new_child
@@ -109,29 +110,51 @@ class Component.Grid
     child.y = y
     @create_pipe @toolbar.str(), i
   set_tile:(tile)=>
-    tile.inputEnabled = true
-    fun = =>
-      @onclick_cell tile.x, tile.y
-    tile.events.onInputDown.add fun, this
+    tile.scale.setTo @gridscale(), @gridscale()
+    if window.editor != false
+      tile.inputEnabled = true
+      fun = =>
+        @onclick_cell tile.x, tile.y
+      tile.events.onInputDown.add fun, this
   create_bg:=>
     # Nice background tiles.
     group = game.add.group()
-    group.createMultiple 96, 'tile', 0, true
-    group.align 12, 8, 64, 64
-    if window.editor != false
-      for tile in group.children
-        @set_tile tile
+    group.createMultiple @gridsize(), 'tile', 0, true
+    group.align @griddim()[0], @griddim()[1], @gridpx(), @gridpx()
+    for tile in group.children
+      @set_tile tile
+  gridscale:=>
+    switch @size
+      when 'large' then 0.75
+      when 'med'   then 1
+      when 'small' then 1.5
+  griddim:=>
+    switch @size
+      when 'large' then [18,10]
+      when 'med'   then [12,8]
+      when 'small' then [8,5]
+  gridpx:=>
+    switch @size
+      when 'large' then 48
+      when 'med'   then 64
+      when 'small' then 96
+  gridsize:=>
+    switch @size
+      when 'large' then 180
+      when 'med'   then 96
+      when 'small' then 40
   create_grid:=>
     @grid = game.add.group()
-    @grid.createMultiple 96, 'pipes', 0, false
-    @grid.align 12, 8, 64, 64
+    @grid.createMultiple @gridsize(), 'pipes', 0, false
+    @grid.align @griddim()[0], @griddim()[1], @gridpx(), @gridpx()
   create_pipes:=>
     @turnb = 1
     @turn1 = game.add.audio 'turn1'
     @turn2 = game.add.audio 'turn2'
     @turn3 = game.add.audio 'turn3'
     @turn4 = game.add.audio 'turn4'
-    pipes  = if _l[@level] then _l[@level].pipes else new Array(96)
+
+    pipes  = if _l[@level] then _l[@level].pipes else new Array(@gridsize())
     for str,i in pipes
       @create_pipe str, i,
   create_pipe:(str,i)=>
@@ -161,11 +184,24 @@ class Component.Grid
   create:(level)=>
     @reset()
     @level = level
+
+    @size =
+    if _l[@level]
+      len = _l[@level].pipes.length
+      switch len
+        when 180 then 'large'
+        when 96  then 'med'
+        when 40  then 'small'
+    else
+      window.editor_size
+    console.log 'size', @size
+    @speed =
     switch _d.mode
-      when 'adventure'
-        @speed = 20
+      when 'adventure' then 20
       when 'time'
-        @speed = if _l[@level] then _l[@level].speed else 10
+        if _l[@level] then _l[@level].speed else 10
+      else
+        20
     @create_bg()
     @spill.create() # had to do it here it ensure correct layering.
     @create_grid()

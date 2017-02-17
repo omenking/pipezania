@@ -13,7 +13,7 @@ get '/:file' do
   send_file "#{path}#{params[:file]}", disposition: 'inline'
 end
 
-options '/save/:level/:pipes' do
+post '/save/:level/:pipes' do
   i     = params['level'].to_i
   l     = i.to_s.rjust 3, "0"
   pipes = params['pipes']
@@ -23,7 +23,7 @@ options '/save/:level/:pipes' do
   }
   pipes = pipes.join(',')
 
-  path  = "/Users/monsterlite/Games/pipes/source/javascripts/levels/l#{l}.js"
+  path  = "#{File.dirname(__FILE__)}/src/levels/l#{l}.js"
   json = "_l[#{i}] = {countdown: 10, speed: 5, pipes: [#{pipes}]}"
 
   File.open(path, 'w') { |f| f.write(json) }

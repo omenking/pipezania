@@ -3,6 +3,7 @@ class Component.PipeStart extends Component.Pipe
     speed = @grid.speed
     dir   = @flow()
     @per1 += speed
+    console.log speed, dir, @per1
     @done = true if @per1 is 100
   render:=>
     super

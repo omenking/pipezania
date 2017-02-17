@@ -10,7 +10,6 @@ class controller
   backup:=> #backup last edited level
     return if window.editor is false
     data = @grid.backup()
-    console.log 'd', data
     ajax = new XMLHttpRequest()
     ajax.open 'POST', "http://localhost:1234/save/#{_d.level}/#{data}"
     ajax.setRequestHeader 'Content-Type', 'application/json'
@@ -28,6 +27,7 @@ class controller
     @backup()
     @clear_screen.show(false)
   release_goo:=>
+    console.log 'release goo'
     @release_button.flow()
 
     if _d.get_sound()
