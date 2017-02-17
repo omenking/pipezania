@@ -38,9 +38,11 @@ _states.load =
     game.load.audio 'turn3' , './turn3.mp3'
     game.load.audio 'turn4' , './turn4.mp3'
 
-    game.load.image 'back_button' , './back.png'
-    game.load.image 'label_adventure' , './label_adventure.png'
-    game.load.image 'label_time'      , './label_time.png'
+    game.load.image 'back_button'    , './back.png'
+    game.load.image 'label_adventure', './label_adventure.png'
+    game.load.image 'label_time'     , './label_time.png'
+
+    game.load.image       'tab', './tab.png'
 
     game.load.image       'button_adventure', './button_adventure.png'
     game.load.image       'button_time'     , './button_time.png'

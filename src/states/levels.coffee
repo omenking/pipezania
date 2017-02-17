@@ -4,6 +4,11 @@ btn_sound = null
 star_med = null
 gem_med  = null
 
+tab_next = null
+tab_prev = null
+
+page = 0
+
 style =
   font: '18px Verdana'
   fill: '#fff'
@@ -136,6 +141,18 @@ onclick_music = =>
     btn_music.frame = 2
     _d.set_music true
 
+onclick_prev = =>
+  return if page is 0
+  page--
+  tab_prev.visible = !(page is 0)
+  tab_next.visible = !(page is 4)
+
+onclick_next = =>
+  return if page is 4
+  page++
+  tab_prev.visible = !(page is 0)
+  tab_next.visible = !(page is 4)
+
 create = ->
   game.stage.backgroundColor = '#1c1c1c'
 
@@ -169,6 +186,23 @@ create = ->
   btn_sound.anchor.setTo 0.5, 0.5
   btn_sound.inputEnabled = true
   btn_sound.events.onInputDown.add onclick_sound, this
+
+  tab_next = game.add.sprite 0, 0, 'tab'
+  tab_next.inputEnabled = true
+  tab_next.events.onInputDown.add onclick_next, this
+  tab_next.anchor.setTo 0.5, 0.5
+  tab_next.x = game.world.width - 24
+  tab_next.y = game.world.centerY
+
+  tab_prev = game.add.sprite 0, 0, 'tab'
+  tab_prev.inputEnabled = true
+  tab_prev.events.onInputDown.add onclick_prev, this
+  tab_prev.anchor.setTo 0.5, 0.5
+  tab_prev.angle += 180
+  tab_prev.x = 24
+  tab_prev.y = game.world.centerY
+  if page is 0
+    tab_prev.visible = false
 
   g_gem = game.add.group()
   i = _d.gem_count()

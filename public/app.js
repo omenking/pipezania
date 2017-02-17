@@ -105445,7 +105445,7 @@ PIXI.TextureSilentFail = true;
 }).call(this);
 
 (function() {
-  var btn_music, btn_sound, create, gem_med, jewel_color, level_locked, level_unlocked_adventure, level_unlocked_time, onclick, onclick_back, onclick_music, onclick_sound, star_med, style, style2, style3, style4, tween_gem, tween_star, update;
+  var btn_music, btn_sound, create, gem_med, jewel_color, level_locked, level_unlocked_adventure, level_unlocked_time, onclick, onclick_back, onclick_music, onclick_next, onclick_prev, onclick_sound, page, star_med, style, style2, style3, style4, tab_next, tab_prev, tween_gem, tween_star, update;
 
   btn_music = null;
 
@@ -105454,6 +105454,12 @@ PIXI.TextureSilentFail = true;
   star_med = null;
 
   gem_med = null;
+
+  tab_next = null;
+
+  tab_prev = null;
+
+  page = 0;
 
   style = {
     font: '18px Verdana',
@@ -105615,6 +105621,28 @@ PIXI.TextureSilentFail = true;
     };
   })(this);
 
+  onclick_prev = (function(_this) {
+    return function() {
+      if (page === 0) {
+        return;
+      }
+      page--;
+      tab_prev.visible = !(page === 0);
+      return tab_next.visible = !(page === 4);
+    };
+  })(this);
+
+  onclick_next = (function(_this) {
+    return function() {
+      if (page === 4) {
+        return;
+      }
+      page++;
+      tab_prev.visible = !(page === 0);
+      return tab_next.visible = !(page === 4);
+    };
+  })(this);
+
   create = function() {
     var back, g_gem, g_star, group, i, j, len, level, ref, title, txt;
     game.stage.backgroundColor = '#1c1c1c';
@@ -105643,6 +105671,22 @@ PIXI.TextureSilentFail = true;
     btn_sound.anchor.setTo(0.5, 0.5);
     btn_sound.inputEnabled = true;
     btn_sound.events.onInputDown.add(onclick_sound, this);
+    tab_next = game.add.sprite(0, 0, 'tab');
+    tab_next.inputEnabled = true;
+    tab_next.events.onInputDown.add(onclick_next, this);
+    tab_next.anchor.setTo(0.5, 0.5);
+    tab_next.x = game.world.width - 24;
+    tab_next.y = game.world.centerY;
+    tab_prev = game.add.sprite(0, 0, 'tab');
+    tab_prev.inputEnabled = true;
+    tab_prev.events.onInputDown.add(onclick_prev, this);
+    tab_prev.anchor.setTo(0.5, 0.5);
+    tab_prev.angle += 180;
+    tab_prev.x = 24;
+    tab_prev.y = game.world.centerY;
+    if (page === 0) {
+      tab_prev.visible = false;
+    }
     g_gem = game.add.group();
     i = _d.gem_count();
     txt = game.make.text(0, 0, i, style3);
@@ -105753,6 +105797,7 @@ PIXI.TextureSilentFail = true;
       game.load.image('back_button', './back.png');
       game.load.image('label_adventure', './label_adventure.png');
       game.load.image('label_time', './label_time.png');
+      game.load.image('tab', './tab.png');
       game.load.image('button_adventure', './button_adventure.png');
       game.load.image('button_time', './button_time.png');
       game.load.spritesheet('button_flow', './button_flow.png', 128, 64, 2);
