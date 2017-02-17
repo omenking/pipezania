@@ -22,6 +22,12 @@ class Component.PipeEnd extends Component.Pipe
     @g.lineStyle 0, 0x000000
     @g.drawRect  11-v2, -12, v2, 24
     @g.endFill()
+    
+    #markers for dumb people
+    @g.beginFill 0xffd900
+    @g.lineStyle 0, 0xffd900
+    @g.drawEllipse -1, 0, 4, 4
+    @g.endFill()
   set:=>
     @kind       = 'end'
     @pipe.frame = 5

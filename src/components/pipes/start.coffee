@@ -21,6 +21,12 @@ class Component.PipeStart extends Component.Pipe
     @g.beginFill 0xffd900
     @g.drawEllipse -1, 0, v1, v1
     @g.endFill()
+
+    #markers for dumb people
+    @g.beginFill 0xffd900
+    @g.lineStyle 0, 0xffd900
+    @g.drawEllipse -1, 0, 4, 4
+    @g.endFill()
   set:=>
     @kind       = 'start'
     @pipe.frame = 4
