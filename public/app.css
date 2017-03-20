@@ -7,3 +7,29 @@ canvas {
   display: block;
   margin: 0px auto;
 }
+
+.godmode {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background: #fff;
+  border-right: solid 2px rgb(40,40,40);
+  overflow: auto;
+  font-family: arial;
+  font-size: 12px;
+}
+.godmode .wrap {
+  padding: 16px;
+}
+.godmode table { border-collapse: collapse; width: 100%; }
+.godmode tr:hover td { background: rgb(250,250,250); }
+.godmode td.id { 
+  width: 1%; 
+  white-space: nowrap; 
+  border-right: solid 1px rgb(220,220,220);
+}
+.godmode td { 
+  padding: 6px 4px;
+  text-align: center;
+  border-bottom: solid 1px rgb(220,220,220);
+}

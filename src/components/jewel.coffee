@@ -8,7 +8,8 @@ class Component.Jewel
       when 2 then 'green'
       when 3 then 'blue'
     @sparkle = game.add.audio 'sparkle'
-    @jewel = game.add.sprite x, y, "jewel_#{@kind}"
+    @jewel = game.add.sprite x, y, 'jewels'
+    @jewel.frame = i
     @jewel.anchor.setTo 0.5, 0.5
     @jewel
   get_i:=>

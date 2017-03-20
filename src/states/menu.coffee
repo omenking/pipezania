@@ -212,8 +212,8 @@ create = ->
 
   tween = game.add
 
-  red  = game.add.sprite (2*64)+32, (2*64)+32, 'jewel_red'
-  blue = game.add.sprite (9*64)+32, (2*64)+32, 'jewel_blue'
+  red  = game.add.sprite (2*64)+32, (2*64)+32, 'jewels', 1
+  blue = game.add.sprite (9*64)+32, (2*64)+32, 'jewels', 3
   red.anchor.setTo  0.5, 0.5
   blue.anchor.setTo 0.5, 0.5
 

@@ -49,17 +49,17 @@ class Component.ClearScreen
   create:=>
     @bg = game.add.sprite 0,0, 'clear_screen'
 
-    @jewel_red = game.make.sprite 0, 0, 'large_jewels'
+    @jewel_red = game.make.sprite 0, 0, 'jewels_large'
     @jewel_red.anchor.setTo 0.5, 0.5
     @jewel_red.x = 240
     @jewel_red.y = (4*64)+24
 
-    @jewel_green = game.make.sprite 0, 0, 'large_jewels'
+    @jewel_green = game.make.sprite 0, 0, 'jewels_large'
     @jewel_green.anchor.setTo 0.5, 0.5
     @jewel_green.x = game.world.width / 2
     @jewel_green.y = (4*64)+24
 
-    @jewel_blue = game.make.sprite 0, 0, 'large_jewels'
+    @jewel_blue = game.make.sprite 0, 0, 'jewels_large'
     @jewel_blue.anchor.setTo 0.5, 0.5
     @jewel_blue.x = game.world.width - 240
     @jewel_blue.y = (4*64)+24

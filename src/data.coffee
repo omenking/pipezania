@@ -37,13 +37,14 @@ class window.Data
     @data.music = v
     @save()
   needed_to_unlock:(level)=>
-    if level >= 17
-      switch level
-        when 17 then 12
-        when 18 then 16
-        when 19 then 19
-    else
-      (level*3)-2
+    switch level
+      when 95 then 30
+      when 96 then 45
+      when 97 then 60
+      when 98 then 75
+      when 99 then 98
+      else
+        (level*3)-2
   gem_count:=>
     count = 0
     if @data.levels
@@ -64,9 +65,11 @@ class window.Data
     count
   is_unlocked:(level)=>
     switch level
-      when 17 then @star_count() >= 12
-      when 18 then @star_count() >= 16
-      when 19 then @star_count() >= 19
+      when 95 then @star_count() is 30
+      when 96 then @star_count() is 45
+      when 97 then @star_count() is 60
+      when 98 then @star_count() is 75
+      when 99 then @star_count() is 98
       when 0  then true
       else
         @gem_count() >= (level*3)-2

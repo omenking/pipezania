@@ -42,13 +42,21 @@ _states.load =
     game.load.image 'label_adventure', './label_adventure.png'
     game.load.image 'label_time'     , './label_time.png'
 
-    game.load.image       'tab', './tab.png'
+    game.load.image 'tab', './tab.png'
+
+    game.load.image 'bg1', './bg1.png'
+    game.load.image 'bg2', './bg2.png'
+    game.load.image 'bg3', './bg3.png'
+    game.load.image 'bg4', './bg4.png'
+    game.load.image 'bg5', './bg5.png'
 
     game.load.image       'button_adventure', './button_adventure.png'
     game.load.image       'button_time'     , './button_time.png'
 
     game.load.spritesheet 'button_flow'  , './button_flow.png'  , 128, 64 , 2
-    game.load.spritesheet 'large_jewels' , './large_jewels.png' , 100, 100, 4
+    game.load.spritesheet 'jewels'      , './jewels.png'      , 28 , 28 , 4
+    game.load.spritesheet 'jewels_large', './jewels_large.png', 100, 100, 4
+
     game.load.spritesheet 'audio_buttons', './audio_buttons.png', 48 , 48 , 4
     game.load.spritesheet 'levels'       , './levels.png'       , 128, 96 , 6
     game.load.spritesheet 'pipes'        , './pipes.png'        , 64 , 64 , 6
@@ -61,11 +69,6 @@ _states.load =
 
     game.load.image 'jewel_med', './jewel_med.png'
     game.load.image 'star_med' , './star_med.png'
-
-    game.load.image 'jewel_blank', './jewel_blank.png'
-    game.load.image 'jewel_blue' , './jewel_blue.png'
-    game.load.image 'jewel_green', './jewel_green.png'
-    game.load.image 'jewel_red'  , './jewel_red.png'
   create: ->
     _d.load()
     titlecard = game.add.image 0, 0, 'titlecard'

@@ -8,7 +8,8 @@ var uglify = require('gulp-uglify')
 var js_init  = './src/init.js'
 
 var js_lib  = [
-    "./src/lib/lz.js"
+    "./src/lib/mithril.js"
+  , "./src/lib/lz.js"
   , "./src/lib/store.js"
   , "./src/lib/phaser.js"
 ]
@@ -23,6 +24,7 @@ var js_app = [
   , './src/components/pipe.coffee'
   , './src/components/release_button.coffee'
   , './src/components/spill.coffee'
+  , './src/components/godmode.coffee'
 
   , './src/components/editor/pipe_button.coffee'
   , './src/components/editor/toolbar.coffee'
@@ -33,6 +35,14 @@ var js_app = [
   , './src/components/pipes/end.coffee'
   , './src/components/pipes/start.coffee'
   , './src/components/pipes/straight.coffee'
+
+  , './src/components/level.coffee'
+  , './src/components/count_gem.coffee'
+  , './src/components/count_star.coffee'
+  , './src/components/button_sound.coffee'
+  , './src/components/button_music.coffee'
+  , './src/components/button_back.coffee'
+  , './src/components/button_tab.coffee'
 
   , './src/states/boot.coffee'
   , './src/states/levels.coffee'
